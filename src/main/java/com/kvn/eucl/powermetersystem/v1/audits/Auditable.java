@@ -34,7 +34,7 @@ public abstract class Auditable implements Serializable {
   private LocalDateTime createdAt;
 
   @LastModifiedDate
-  @Column(name = "last_modified_by")
+  @Column(name = "last_modified_date")
   private LocalDateTime lastModifiedDate;
 
   @CreatedBy

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.kvn.eucl.powermetersystem.v1.audits.Auditable;
-import com.kvn.eucl.powermetersystem.v1.enums.token.ETokenStatus;
+import com.kvn.eucl.powermetersystem.v1.enums.tokens.ETokenStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
