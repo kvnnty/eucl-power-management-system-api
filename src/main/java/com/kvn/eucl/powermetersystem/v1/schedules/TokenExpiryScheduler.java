@@ -1,5 +1,6 @@
 package com.kvn.eucl.powermetersystem.v1.schedules;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +47,10 @@ public class TokenExpiryScheduler {
         }
     }
 
-    // Check tokens expiring in next 5 hours and notify
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 0 * * * *") // Runs every hour
     public void checkExpiringTokens() {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime limit = now.plusHours(5);
+        LocalDateTime limit = now.plusHours(5); // Still check tokens expiring in the next 5 hours
 
         List<PurchasedToken> tokens = tokenRepository.findTokensExpiringInWindow(now, limit);
 
@@ -60,14 +60,26 @@ public class TokenExpiryScheduler {
                 if (user == null)
                     continue;
 
+                Duration duration = Duration.between(now, token.getExpirationDate());
+                long hours = duration.toHours();
+                long minutes = duration.toMinutesPart();
+
+                String timeRemaining;
+                if (hours > 0) {
+                    timeRemaining = String.format("%d hours and %d minutes", hours, minutes);
+                } else {
+                    timeRemaining = String.format("%d minutes", minutes);
+                }
                 String msg = String.format(
-                        "Dear %s, REG is pleased to remind you that the token in meter %s is going to expire in 5 hours. Please purchase a new token.",
-                        user.getNames(), token.getMeter().getMeterNumber());
+                        "Dear %s, REG is pleased to remind you that the token in meter %s will expire in %s. Please purchase a new token.",
+                        user.getNames(),
+                        token.getMeter().getMeterNumber(),
+                        timeRemaining);
 
                 Notification notif = Notification.builder()
                         .meter(token.getMeter())
                         .message(msg)
-                        .issuedDate(LocalDateTime.now())
+                        .issuedDate(now)
                         .build();
 
                 Notification saved = notificationRepository.save(notif);
@@ -76,6 +88,5 @@ public class TokenExpiryScheduler {
                 log.error("Failed to process token notification: {}", ex.getMessage(), ex);
             }
         }
-
     }
 }
