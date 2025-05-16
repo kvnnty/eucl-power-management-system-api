@@ -13,8 +13,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,7 +51,8 @@ public class User extends Auditable {
   @Column(name = "national_id", unique = true, nullable = false)
   private String nationalId;
 
-  @OneToOne
+  @ManyToOne
+  @JoinColumn(name = "role_id")
   private Role role;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

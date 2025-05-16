@@ -1,9 +1,11 @@
 package com.kvn.eucl.powermetersystem.v1.entities.users;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.kvn.eucl.powermetersystem.v1.enums.users.ERole;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,4 +34,7 @@ public class Role {
   @Enumerated(EnumType.STRING)
   @Column(name = "role_type", unique = true, nullable = false)
   private ERole type;
+
+  @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<User> users;
 }
