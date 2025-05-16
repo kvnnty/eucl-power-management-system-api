@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import com.kvn.eucl.powermetersystem.v1.dtos.requests.user.CreateUserDTO;
 import com.kvn.eucl.powermetersystem.v1.dtos.requests.user.UpdateUserDTO;
-import com.kvn.eucl.powermetersystem.v1.dtos.responses.UserResponseDTO;
+import com.kvn.eucl.powermetersystem.v1.dtos.responses.users.UserResponseDTO;
 
 public interface AdminService {
   void createAdmin(CreateUserDTO requestDto);

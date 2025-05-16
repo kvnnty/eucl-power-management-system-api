@@ -1,6 +1,6 @@
 package com.kvn.eucl.powermetersystem.v1.dtos.responses.auth;
 
-import com.kvn.eucl.powermetersystem.v1.dtos.responses.UserResponseDTO;
+import com.kvn.eucl.powermetersystem.v1.dtos.responses.users.UserResponseDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

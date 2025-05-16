@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.kvn.eucl.powermetersystem.v1.audits.Auditable;
+import com.kvn.eucl.powermetersystem.v1.entities.meters.Meter;
 import com.kvn.eucl.powermetersystem.v1.enums.tokens.ETokenStatus;
 
 import jakarta.persistence.Column;
@@ -13,6 +14,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,15 +35,16 @@ public class PurchasedToken extends Auditable {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(name = "meter_number", nullable = false, length = 6)
-  private String meter_number;
+  @ManyToOne
+  @JoinColumn(name = "meter_id", nullable = false)
+  private Meter meter;
 
   @Column(name = "token", unique = true, nullable = false, length = 16)
   private String token;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "token_status", nullable = false)
-  private ETokenStatus token_Status;
+  private ETokenStatus tokenStatus;
 
   @Column(name = "token_value_days", nullable = false)
   private Integer tokenValueDays;
@@ -49,6 +53,6 @@ public class PurchasedToken extends Auditable {
   private LocalDateTime purchasedDate;
 
   @Column
-  private Float amount;
+  private Integer amount;
 
 }

@@ -1,6 +1,6 @@
 package com.kvn.eucl.powermetersystem.v1.utils.mappers;
 
-import com.kvn.eucl.powermetersystem.v1.dtos.responses.UserResponseDTO;
+import com.kvn.eucl.powermetersystem.v1.dtos.responses.users.UserResponseDTO;
 import com.kvn.eucl.powermetersystem.v1.entities.users.User;
 
 public class UserMapper {

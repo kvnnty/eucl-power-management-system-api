@@ -1,10 +1,13 @@
 package com.kvn.eucl.powermetersystem.v1.entities.meters;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.kvn.eucl.powermetersystem.v1.audits.Auditable;
+import com.kvn.eucl.powermetersystem.v1.entities.tokens.PurchasedToken;
 import com.kvn.eucl.powermetersystem.v1.entities.users.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,5 +40,9 @@ public class Meter extends Auditable {
 
   @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
-  private User user;
+  private User owner;
+
+  @OneToMany(mappedBy = "meter", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<PurchasedToken> tokens;
+
 }

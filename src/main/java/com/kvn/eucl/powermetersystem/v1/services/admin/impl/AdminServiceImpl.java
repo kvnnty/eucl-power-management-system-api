@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kvn.eucl.powermetersystem.v1.dtos.requests.user.CreateUserDTO;
 import com.kvn.eucl.powermetersystem.v1.dtos.requests.user.UpdateUserDTO;
-import com.kvn.eucl.powermetersystem.v1.dtos.responses.UserResponseDTO;
+import com.kvn.eucl.powermetersystem.v1.dtos.responses.users.UserResponseDTO;
 import com.kvn.eucl.powermetersystem.v1.entities.users.Role;
 import com.kvn.eucl.powermetersystem.v1.entities.users.User;
 import com.kvn.eucl.powermetersystem.v1.enums.users.ERole;

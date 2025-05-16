@@ -55,7 +55,7 @@ public class User extends Auditable {
   @JoinColumn(name = "role_id")
   private Role role;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
   private Set<Meter> meters;
 
 }

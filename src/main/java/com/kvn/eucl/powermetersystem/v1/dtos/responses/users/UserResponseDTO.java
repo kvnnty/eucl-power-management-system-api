@@ -1,4 +1,4 @@
-package com.kvn.eucl.powermetersystem.v1.dtos.responses;
+package com.kvn.eucl.powermetersystem.v1.dtos.responses.users;
 
 import java.util.UUID;
 
