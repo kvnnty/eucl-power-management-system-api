@@ -28,7 +28,7 @@ public class TokenExpiryScheduler {
     private final NotificationRepository notificationRepository;
     private final MailService mailService;
 
-    // Run every hour
+    // Run cron job every hour
     @Scheduled(cron = "0 0 * * * *")
     public void expireTokens() {
         List<PurchasedToken> newTokens = tokenRepository.findByTokenStatus(ETokenStatus.NEW);
@@ -47,10 +47,11 @@ public class TokenExpiryScheduler {
         }
     }
 
-    @Scheduled(cron = "0 0 * * * *") // Runs every hour
+    // Run cron job every hour
+    @Scheduled(cron = "0 0 * * * *")
     public void checkExpiringTokens() {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime limit = now.plusHours(5); // Still check tokens expiring in the next 5 hours
+        LocalDateTime limit = now.plusHours(5);
 
         List<PurchasedToken> tokens = tokenRepository.findTokensExpiringInWindow(now, limit);
 
@@ -83,7 +84,8 @@ public class TokenExpiryScheduler {
                         .build();
 
                 Notification saved = notificationRepository.save(notif);
-                mailService.sendMail(saved);
+                mailService.sendMail(saved.getMeter().getOwner().getEmail(), saved.getMessage(),
+                        "Token expiry notification");
             } catch (Exception ex) {
                 log.error("Failed to process token notification: {}", ex.getMessage(), ex);
             }

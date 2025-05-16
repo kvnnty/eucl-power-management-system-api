@@ -16,12 +16,14 @@ import com.kvn.eucl.powermetersystem.v1.dtos.responses.meters.MeterResponseDTO;
 import com.kvn.eucl.powermetersystem.v1.payload.ApiResponse;
 import com.kvn.eucl.powermetersystem.v1.services.meter.MeterService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/meters")
 @RequiredArgsConstructor
+@Tag(name = "Meter Resource")
 public class MeterController {
   private final MeterService meterService;
 
