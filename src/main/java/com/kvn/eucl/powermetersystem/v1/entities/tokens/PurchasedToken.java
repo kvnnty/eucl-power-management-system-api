@@ -52,7 +52,14 @@ public class PurchasedToken extends Auditable {
   @Column(name = "purchased_date", nullable = false)
   private LocalDateTime purchasedDate;
 
+  @Column(name = "expiration_date", nullable = false)
+  private LocalDateTime expirationDate;
+
   @Column
   private Integer amount;
+
+  public boolean isExpired() {
+    return LocalDateTime.now().isAfter(this.expirationDate);
+  }
 
 }

@@ -24,5 +24,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
   boolean existsByNationalId(String nationalId);
 
-  List<User> findAllByRole (Role role);
+  List<User> findAllByRole(Role role);
 }

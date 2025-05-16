@@ -64,6 +64,7 @@ public class TokenServiceImpl implements TokenService {
         .tokenValueDays(days)
         .amount(amount)
         .purchasedDate(LocalDateTime.now())
+        .expirationDate(LocalDateTime.now().plusDays(days))
         .build();
 
     tokenRepository.save(purchasedToken);

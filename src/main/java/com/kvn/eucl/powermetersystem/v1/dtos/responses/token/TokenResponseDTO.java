@@ -15,5 +15,6 @@ public class TokenResponseDTO {
   private String token;
   private int tokenValueDays;
   private LocalDateTime purchasedDate;
+  private LocalDateTime expirationDate;
   private Float amount;
 }

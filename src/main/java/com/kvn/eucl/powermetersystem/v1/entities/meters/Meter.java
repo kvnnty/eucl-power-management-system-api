@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.kvn.eucl.powermetersystem.v1.audits.Auditable;
+import com.kvn.eucl.powermetersystem.v1.entities.notifications.Notification;
 import com.kvn.eucl.powermetersystem.v1.entities.tokens.PurchasedToken;
 import com.kvn.eucl.powermetersystem.v1.entities.users.User;
 
@@ -44,5 +45,8 @@ public class Meter extends Auditable {
 
   @OneToMany(mappedBy = "meter", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<PurchasedToken> tokens;
+
+  @OneToMany(mappedBy = "meter", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Notification> notifications;
 
 }
