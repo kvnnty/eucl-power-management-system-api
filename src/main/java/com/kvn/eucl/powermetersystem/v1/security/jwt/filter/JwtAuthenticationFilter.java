@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.kvn.eucl.powermetersystem.v1.exceptions.JwtException;
+import com.kvn.eucl.powermetersystem.v1.exceptions.JwtVerificationException;
 import com.kvn.eucl.powermetersystem.v1.security.jwt.JwtTokenService;
 import com.kvn.eucl.powermetersystem.v1.security.user.CustomUserDetailsService;
 
@@ -56,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             logger.warn("Invalid JWT token for user: {}", userEmail);
           }
         }
-      } catch (JwtException e) {
+      } catch (JwtVerificationException e) {
         logger.error("JWT processing failed: {}", e.getMessage());
         respondWithUnauthorized(response, "Invalid or expired JWT token");
         return;

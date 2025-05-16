@@ -37,10 +37,11 @@ public class WebSecurityConfig {
         .authorizeHttpRequests(request -> request
             .requestMatchers(
                 "/api/v1/auth/**",
+                "/api/v1/users/register",
                 "/swagger-ui/**",
                 "/v3/api-docs/**")
             .permitAll()
-            .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ROLE_ADMIN")
+            .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SUPER_ADMIN")
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .exceptionHandling(exceptionHandling -> exceptionHandling

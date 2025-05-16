@@ -12,7 +12,6 @@ import com.kvn.eucl.powermetersystem.v1.security.user.UserPrincipal;
 
 @Component("auditorAware")
 public class AuditAwareConfig implements AuditorAware<UUID> {
-
   @Override
   public Optional<UUID> getCurrentAuditor() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -21,9 +20,13 @@ public class AuditAwareConfig implements AuditorAware<UUID> {
       return Optional.empty();
     }
 
-    UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-    return Optional.ofNullable(userPrincipal.getId());
+    Object principal = authentication.getPrincipal();
 
+    if (principal instanceof UserPrincipal userPrincipal) {
+      return Optional.ofNullable(userPrincipal.getId());
+    } else {
+      return Optional.empty();
+    }
   }
 
 }

@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.kvn.eucl.powermetersystem.v1.entities.users.User;
-import com.kvn.eucl.powermetersystem.v1.repositories.users.UsersRepository;
+import com.kvn.eucl.powermetersystem.v1.repositories.users.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,11 +14,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-  private UsersRepository usersRepository;
+  private final UserRepository userRepository;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = usersRepository.findByEmail(username)
+    User user = userRepository.findByEmail(username)
         .orElseThrow(() -> new UsernameNotFoundException(String.format("User with email %s not found", username)));
     return new UserPrincipal(user);
   }
