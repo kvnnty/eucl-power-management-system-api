@@ -64,6 +64,7 @@ public class DataSeeder implements ApplicationRunner {
           .password(passwordEncoder.encode(password))
           .phoneNumber(phoneNumber)
           .nationalId(nationalId)
+          .isVerified(true)
           .role(superAdminRole)
           .build();
 

@@ -6,10 +6,14 @@ import com.kvn.eucl.powermetersystem.v1.dtos.responses.auth.AuthResponseDTO;
 public interface AuthService {
   AuthResponseDTO login(LoginRequestDTO requestDTO);
 
-  void forgotPassword(String email);
-
-  void verifyAccount(String email);
+  void verifyAccount(String email, String code);
 
   void resendAccountVerificationCode(String email);
+
+  void forgotPassword(String email);
+
+  void resetPassword(String email, String code, String newPassword);
+
+  void resendPasswordResetCode(String email);
 
 }

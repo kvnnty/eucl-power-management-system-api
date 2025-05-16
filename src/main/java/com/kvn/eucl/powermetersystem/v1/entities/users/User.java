@@ -48,6 +48,9 @@ public class User extends Auditable {
   @Column(name = "phone_number", unique = true, nullable = false)
   private String phoneNumber;
 
+  @Column(name = "is_verified")
+  private boolean isVerified;
+
   @Column(name = "national_id", unique = true, nullable = false)
   private String nationalId;
 
@@ -57,5 +60,8 @@ public class User extends Auditable {
 
   @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
   private Set<Meter> meters;
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private Set<Otp> otps;
 
 }

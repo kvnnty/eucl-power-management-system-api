@@ -3,7 +3,10 @@ package com.kvn.eucl.powermetersystem.v1.controllers.auth;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kvn.eucl.powermetersystem.v1.dtos.requests.auth.EmailRequest;
 import com.kvn.eucl.powermetersystem.v1.dtos.requests.auth.LoginRequestDTO;
+import com.kvn.eucl.powermetersystem.v1.dtos.requests.auth.OtpVerificationRequest;
+import com.kvn.eucl.powermetersystem.v1.dtos.requests.auth.ResetPasswordRequest;
 import com.kvn.eucl.powermetersystem.v1.dtos.responses.auth.AuthResponseDTO;
 import com.kvn.eucl.powermetersystem.v1.payload.ApiResponse;
 import com.kvn.eucl.powermetersystem.v1.services.auth.AuthService;
@@ -32,31 +35,34 @@ public class AuthController {
     return ApiResponse.success("Logged in successfully", HttpStatus.OK, authResponse);
   }
 
-  @PostMapping("/forgot-password")
-  public ResponseEntity<ApiResponse<Object>> forgotPassword(@RequestBody String email) {
-    authService.forgotPassword(email);
-    return ApiResponse.success("Reset password instructions sent to email", HttpStatus.OK, null);
-  }
-
-  @PostMapping("/reset-password")
-  public String resetPassword(@RequestBody String entity) {
-    return entity;
-  }
-
   @PostMapping("/verify-account")
-  public String verifyAccount(@RequestBody String entity) {
-
-    return entity;
+  public ResponseEntity<ApiResponse<Object>> verifyAccount(@RequestBody @Valid OtpVerificationRequest request) {
+    authService.verifyAccount(request.getEmail(), request.getCode());
+    return ApiResponse.success("Account successfully verified", HttpStatus.OK, null);
   }
 
   @PostMapping("/resend-account-verification-code")
-  public String resendAccountVerificationCode(@RequestBody String entity) {
-    return entity;
+  public ResponseEntity<ApiResponse<Object>> resendAccountVerificationCode(@RequestBody @Valid EmailRequest request) {
+    authService.resendAccountVerificationCode(request.getEmail());
+    return ApiResponse.success("Verification code resent to email", HttpStatus.OK, null);
+  }
+
+  @PostMapping("/forgot-password")
+  public ResponseEntity<ApiResponse<Object>> forgotPassword(@RequestBody @Valid EmailRequest request) {
+    authService.forgotPassword(request.getEmail());
+    return ApiResponse.success("Reset password instructions sent to email", HttpStatus.OK, null);
   }
 
   @PostMapping("/resend-password-reset-code")
-  public String resendPasswordResetCode(@RequestBody String entity) {
-    return entity;
+  public ResponseEntity<ApiResponse<Object>> resendPasswordResetCode(@RequestBody @Valid EmailRequest request) {
+    authService.resendPasswordResetCode(request.getEmail());
+    return ApiResponse.success("Password reset code resent to email", HttpStatus.OK, null);
   }
 
+  @PostMapping("/reset-password")
+  public ResponseEntity<ApiResponse<Object>> resetPassword(@RequestBody @Valid ResetPasswordRequest request) {
+    authService.resetPassword(request.getEmail(), request.getCode(), request.getNewPassword());
+    return ApiResponse.success("Password has been reset successfully. Use your new password to login", HttpStatus.OK,
+        null);
+  }
 }

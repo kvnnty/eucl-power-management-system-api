@@ -17,7 +17,7 @@ public class MailServiceImpl implements MailService {
 
   @Async
   @Override
-  public void sendMail(String to, String message, String subject) {
+  public void sendMail(String to, String subject, String message) {
 
     SimpleMailMessage mailMessage = new SimpleMailMessage();
 

@@ -50,6 +50,7 @@ public class AdminServiceImpl implements AdminService {
         .phoneNumber(requestDto.getPhoneNumber())
         .nationalId(requestDto.getNationalId())
         .password(passwordEncoder.encode(requestDto.getPassword()))
+        .isVerified(true)
         .role(adminRole)
         .build();
 
