@@ -8,6 +8,7 @@ COPY . .
 RUN mvn clean package
 
 FROM eclipse-temurin:21-jre
+
 WORKDIR /app
 
 # Copy the packaged JAR from the builder stage

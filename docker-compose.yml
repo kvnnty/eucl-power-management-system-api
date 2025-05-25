@@ -8,7 +8,7 @@ services:
     environment: 
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/eucl
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: qwerty123
+      SPRING_DATASOURCE_PASSWORD: secure@123
     depends_on:
       - db
 
@@ -17,7 +17,7 @@ services:
     environment:
       POSTGRES_DB: eucl
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: qwerty123
+      POSTGRES_PASSWORD: secure@123
     ports:
       - "5432:5432"
     volumes:
