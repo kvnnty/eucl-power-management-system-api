@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/tokens")
 @RequiredArgsConstructor
-@Tag(name = "Purchased Tokens resource")
+@Tag(name = "Purchased Tokens resource", description = "APIs for managing purchased tokens and their operations")
 public class TokenController {
 
   private final TokenService tokenService;

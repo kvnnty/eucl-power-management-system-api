@@ -13,7 +13,7 @@
 	<artifactId>eucl</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>eucl</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Spring boot API for EUCL Power Management System</description>
 	<url/>
 	<licenses>
 		<license/>

@@ -15,10 +15,12 @@ import com.kvn.eucl.v1.repositories.roles.RoleRepository;
 import com.kvn.eucl.v1.repositories.users.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
-public class DataSeeder implements ApplicationRunner {
+public class DataInitializer implements ApplicationRunner {
 
   private final RoleRepository roleRepository;
   private final UserRepository userRepository;
@@ -69,6 +71,9 @@ public class DataSeeder implements ApplicationRunner {
           .build();
 
       userRepository.save(superAdmin);
+
+      log.info("System admin created with email: {}", email);
+
     }
   }
 }

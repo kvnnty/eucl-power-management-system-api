@@ -13,7 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.kvn.eucl.v1.security.handlers.CustomAccessDeniedException;
+import com.kvn.eucl.v1.security.handlers.CustomAccessDeniedHandler;
 import com.kvn.eucl.v1.security.handlers.JwtAuthenticationEntryPoint;
 import com.kvn.eucl.v1.security.jwt.filter.JwtAuthenticationFilter;
 
@@ -25,9 +25,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-  private final JwtAuthenticationFilter jwtAuthenticationFilter;
+  private final JwtAuthenticationFilter authenticationFilter;
   private final JwtAuthenticationEntryPoint authenticationEntryPoint;
-  private final CustomAccessDeniedException accessDeniedException;
+  private final CustomAccessDeniedHandler accessDeniedHandler;
   private final AuthenticationProvider authenticationProvider;
 
   @Bean
@@ -45,10 +45,10 @@ public class WebSecurityConfig {
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .exceptionHandling(exceptionHandling -> exceptionHandling
-            .accessDeniedHandler(accessDeniedException)
+            .accessDeniedHandler(accessDeniedHandler)
             .authenticationEntryPoint(authenticationEntryPoint))
         .authenticationProvider(authenticationProvider)
-        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }

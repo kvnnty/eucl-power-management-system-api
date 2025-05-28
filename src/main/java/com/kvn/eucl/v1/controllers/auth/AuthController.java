@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/v1/auth")
 @Validated
 @RequiredArgsConstructor
-@Tag(name = "Authentication Resource")
+@Tag(name = "Authentication Resource", description = "APIs for managing user authentication and account verification")
 public class AuthController {
   private final AuthService authService;
 

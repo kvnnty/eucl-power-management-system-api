@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/meters")
 @RequiredArgsConstructor
-@Tag(name = "Meter Resource")
+@Tag(name = "Meter Resource", description = "APIs for managing meters and their operations")
 public class MeterController {
   private final MeterService meterService;
 

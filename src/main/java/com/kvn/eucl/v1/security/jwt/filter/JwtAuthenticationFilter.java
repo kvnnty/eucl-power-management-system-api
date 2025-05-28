@@ -2,8 +2,6 @@ package com.kvn.eucl.v1.security.jwt.filter;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,14 +19,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-  private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
-
-  private final JwtTokenService jwtService;
+  private final JwtTokenService tokenService;
   private final CustomUserDetailsService userDetailsService;
 
   @Override
@@ -39,12 +37,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     if (StringUtils.hasText(jwtToken)) {
       try {
-        String userEmail = jwtService.extractEmailFromToken(jwtToken);
+        String userEmail = tokenService.extractEmailFromToken(jwtToken);
 
         if (StringUtils.hasText(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null) {
           UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
 
-          if (jwtService.isTokenValid(jwtToken, userDetails)) {
+          if (tokenService.isTokenValid(jwtToken, userDetails)) {
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 null,
@@ -53,15 +51,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authToken);
           } else {
-            logger.warn("Invalid JWT token for user: {}", userEmail);
+            log.warn("Invalid JWT token for user: {}", userEmail);
           }
         }
       } catch (JwtVerificationException e) {
-        logger.error("JWT processing failed: {}", e.getMessage());
+        log.error("JWT processing failed: {}", e.getMessage());
         respondWithUnauthorized(response, "Invalid or expired JWT token");
         return;
       } catch (Exception e) {
-        logger.error("Unexpected error during JWT authentication: {}", e.getMessage(), e);
+        log.error("Unexpected error during JWT authentication: {}", e.getMessage(), e);
         respondWithUnauthorized(response, "Authentication failed");
         return;
       }
